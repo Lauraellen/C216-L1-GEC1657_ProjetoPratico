@@ -27,7 +27,7 @@
 
 O projeto consiste em um sistema de gerenciamento de livros de uma biblioteca.
 
-Acesse o link para visualizar o [funcionamento](https://posinatel-my.sharepoint.com/:v:/r/personal/laura_ellen_gec_inatel_br/Documents/C216/Projeto_C216.mp4?csf=1&web=1&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=394d4S).
+Acesse o link para visualizar o [funcionamento](https://youtu.be/3B-SvkzsTcg).
 
 
 ## Funcionalidades
@@ -44,16 +44,12 @@ Com a aplicação é possível: <br>
 
 * O backend foi desenvolvido utlizando NodeJs.
 
-* No frontend, utilizaremos react para construir toda a interface.
-
 * Para armazenamento de dados, foi utilizado o postgres.
 
 
 ## Execução
 
 * Clone o repositório.
-
-* Instale o Node.js em sua máquina.
 
 * Abra-o na IDE de sua preferência.
 
