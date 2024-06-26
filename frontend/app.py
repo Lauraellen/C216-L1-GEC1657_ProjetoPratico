@@ -26,13 +26,15 @@ def inserir_livro():
     ano_publicacao = request.form['ano_publicacao']
     edicao = request.form['edicao']
     genero = request.form['genero']
+    disponivel = request.form['disponivel']
 
     payload = {
         'titulo': titulo,
         'autor': autor,
         'ano_publicacao': ano_publicacao,
         'edicao': edicao,
-        'genero': genero
+        'genero': genero,
+        'disponivel': disponivel
     }
 
     response = requests.post(f'{API_BASE_URL}/inserir', json=payload)
@@ -54,10 +56,10 @@ def listar_livros():
 @app.route('/atualizar/<int:livro_id>', methods=['GET'])
 def atualizar_livro_form(livro_id):
     response = requests.get(f"{API_BASE_URL}/listar")
-    #filtrando apenas o professor correspondente ao ID
+    #filtrando apenas o livro correspondente ao ID
     livros = [livro for livro in response.json() if livro['id'] == livro_id]
     if len(livros) == 0:
-        return "Professor não encontrado", 404
+        return "Livro não encontrado", 404
     livro = livros[0]
     return render_template('atualizar.html', livro=livro)
 
@@ -69,6 +71,7 @@ def atualizar_livro(livro_id):
     ano_publicacao = request.form['ano_publicacao']
     edicao = request.form['edicao']
     genero = request.form['genero']
+    disponivel = request.form['disponivel']
 
     payload = {
         'id': livro_id,
@@ -76,7 +79,8 @@ def atualizar_livro(livro_id):
         'autor': autor,
         'ano_publicacao': ano_publicacao,
         'edicao': edicao,
-        'genero': genero
+        'genero': genero,
+        'disponivel': disponivel
     }
 
     response = requests.post(f"{API_BASE_URL}/atualizar", json=payload)

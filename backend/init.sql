@@ -4,5 +4,6 @@ CREATE TABLE biblioteca (
   autor VARCHAR(255) NOT NULL,
   ano_publicacao VARCHAR(255),
   edicao INTEGER,
-  genero VARCHAR(255)
+  genero VARCHAR(255),
+  disponivel VARCHAR(50)
 )

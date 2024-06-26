@@ -18,7 +18,7 @@ var server = restify.createServer({
 async function initDatabase() {
     try {
         await pool.query('DROP TABLE IF EXISTS biblioteca');
-        await pool.query('CREATE TABLE IF NOT EXISTS biblioteca (id SERIAL PRIMARY KEY, titulo VARCHAR(255) NOT NULL, autor VARCHAR(255) NOT NULL, ano_publicacao VARCHAR(255), edicao INTEGER, genero VARCHAR(255) )');
+        await pool.query('CREATE TABLE IF NOT EXISTS biblioteca (id SERIAL PRIMARY KEY, titulo VARCHAR(255) NOT NULL, autor VARCHAR(255) NOT NULL, ano_publicacao VARCHAR(255), edicao INTEGER, genero VARCHAR(255), disponivel VARCHAR(50) )');
 
         console.log('Banco de dados inicializado com sucesso');
     } catch (error) {
@@ -32,11 +32,11 @@ server.use(restify.plugins.bodyParser());
 
 // Endpoint para inserir um novo livro
 server.post('/api/v1/biblioteca/inserir', async (req, res, next) => {
-  const { titulo, autor, ano_publicacao, edicao, genero } = req.body;
+  const { titulo, autor, ano_publicacao, edicao, genero, disponivel } = req.body;
   try {
       const result = await pool.query(
-        'INSERT INTO biblioteca (titulo, autor, ano_publicacao, edicao, genero) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-        [titulo, autor, ano_publicacao, edicao, genero]
+        'INSERT INTO biblioteca (titulo, autor, ano_publicacao, edicao, genero, disponivel) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+        [titulo, autor, ano_publicacao, edicao, genero, disponivel]
       );
       res.send(201, result.rows[0]);
       console.log('Livro inserido com sucesso:', result.rows[0]);
@@ -62,22 +62,22 @@ server.get('/api/v1/biblioteca/listar', async (req, res, next) => {
 
 // Endpoint para atualizar um livro existente
 server.post('/api/v1/biblioteca/atualizar', async (req, res, next) => {
-  const { id, titulo, autor, ano_publicacao, edicao, genero } = req.body;
+  const { id, titulo, autor, ano_publicacao, edicao, genero, disponivel } = req.body;
 
   try {
       const result = await pool.query(
-        'UPDATE biblioteca SET titulo = $1, autor = $2, ano_publicacao = $3, edicao = $4, genero = $5 WHERE id = $6 RETURNING *',
-        [titulo, autor, ano_publicacao, edicao, genero, id]
+        'UPDATE biblioteca SET titulo = $1, autor = $2, ano_publicacao = $3, edicao = $4, genero = $5, disponivel = $6 WHERE id = $7 RETURNING *',
+        [titulo, autor, ano_publicacao, edicao, genero, disponivel, id]
       );
       if (result.rowCount === 0) {
-        res.send(404, { message: 'Professor não encontrado' });
+        res.send(404, { message: 'Livro não encontrado' });
       } else {
         res.send(200, result.rows[0]);
-        console.log('Professor atualizado com sucesso:', result.rows[0]);
+        console.log('Livro atualizado com sucesso:', result.rows[0]);
       }
     } catch (error) {
-      console.error('Erro ao atualizar professor:', error);
-      res.send(500, { message: 'Erro ao atualizar professor' });
+      console.error('Erro ao atualizar livro:', error);
+      res.send(500, { message: 'Erro ao atualizar livro' });
     }
 
   return next();
@@ -106,8 +106,7 @@ server.post('/api/v1/biblioteca/excluir', async (req, res, next) => {
 server.del('/api/v1/database/reset', async (req, res, next) => {
     try {
       await pool.query('DROP TABLE IF EXISTS biblioteca');
-      // await pool.query('CREATE TABLE biblioteca (id SERIAL PRIMARY KEY, title VARCHAR(255) NOT NULL, author VARCHAR(255) NOT NULL, year_publication VARCHAR(50), number_edition VARCHAR(10), book_genre VARCHAR(50) )');
-      await pool.query('CREATE TABLE IF NOT EXISTS biblioteca (id SERIAL PRIMARY KEY, titulo VARCHAR(255) NOT NULL, autor VARCHAR(255) NOT NULL, ano_publicacao VARCHAR(255), edicao INTEGER, genero VARCHAR(255) )');
+      await pool.query('CREATE TABLE IF NOT EXISTS biblioteca (id SERIAL PRIMARY KEY, titulo VARCHAR(255) NOT NULL, autor VARCHAR(255) NOT NULL, ano_publicacao VARCHAR(255), edicao INTEGER, genero VARCHAR(255), disponivel VARCHAR(50) )');
 
       res.send(200, { message: 'Banco de dados resetado com sucesso' });
       console.log('Banco de dados resetado com sucesso');

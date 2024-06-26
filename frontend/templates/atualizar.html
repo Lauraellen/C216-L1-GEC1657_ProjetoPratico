@@ -46,6 +46,16 @@
       
       <label for="genero" class="form-label">Genêro</label><br />
       <input type="text" id="genero" name="genero" value="{{ livro.genero }}" class="form-control" /><br />
+
+      
+      <label for="disponivel" class="form-label">Disponível?</label><br>
+
+      <select name="disponivel" id="disponivel" class="form-control">
+          <option value="">--Selecione um opção--</option>
+          <option value="Sim" {% if livro.disponivel == 'Sim' %}selected{% endif %}>Sim</option>
+          <option value="Não" {% if livro.disponivel == 'Não' %}selected{% endif %}>Não</option>
+      </select>
+      
       <br />
       <input type="submit" value="Atualizar" class="btn btn-primary" />
     </form>
