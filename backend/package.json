@@ -1,0 +1,16 @@
+{
+  "name": "projeto-pratico-c216",
+  "version": "1.0.0",
+  "description": "Cadastro de livros de uma biblioteca",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "restify": "^8.5.1",
+    "pg": "^8.11.5"
+  },
+  "author": "Laura Ellen - 1657",
+  "license": "ISC"
+}
